@@ -1,6 +1,7 @@
 <template>
   <v-row align="center" justify="center">
     <v-col cols="6">
+      <!-- <v-btn @click="updateTemp">Test</v-btn> -->
       <v-card class="mb-6">
         <v-list-item two-line>
           <v-list-item-content>
@@ -11,9 +12,11 @@
 
         <v-card-text>
           <v-row align="center">
-            <v-col class="display-3" cols="6">{{readTemperatureData}}&deg;C</v-col>
+            <v-col class="display-3" cols="6">
+              <v-col class="display-1" cols="6">{{this.temperature}}&deg;C</v-col>
+            </v-col>
             <v-col cols="6">
-              <v-sparkline labels="labels" value="value"></v-sparkline>
+              <!-- <v-sparkline labels="labels" value="value"></v-sparkline> -->
               <!-- <p class="display-2">Chart Placeholder</p> -->
             </v-col>
           </v-row>
@@ -30,9 +33,9 @@
 
         <v-card-text>
           <v-row align="center">
-            <v-col class="display-3" cols="6">23&deg;C</v-col>
+            <v-col class="display-1" cols="6">{{this.humidity}}&deg;C</v-col>
             <v-col cols="6">
-              <v-sparkline labels="labels" value="value"></v-sparkline>
+              <!-- <v-sparkline labels="labels" value="value"></v-sparkline> -->
               <!-- <p class="display-2">Chart Placeholder</p> -->
             </v-col>
           </v-row>
@@ -43,26 +46,69 @@
 </template>
 
 <script>
-import firebase from "firebase";
+import { db } from "../server/db.js";
 
-var database = firebase.database();
-var temperatureRef = database.ref("smart-pharmacy-fridge/Sensor_Data/temperature");
+const sensorDataRef = db.ref("Sensor_Data");
+// const childDataRef = sensorDataRef
+//   .orderByChild("temperature")
+//   .on("child_added", snapshot => {
+//     this.updateTemp(snapshot.val().temperature);
+//     this.updateHumidity(snapshot.val().humidity);
+//     console.log(snapshot.val().temperature);
+//   });
 
 export default {
   name: "Readings",
+  // beforeMount() {
+  //   this.temperature = sensorDataRef
+  //       .orderByChild("temperature")
+  //       .on("child_added", snapshot => {
+  //         this.updateTemp(snapshot.val().temperature);
+  //         //this.updateHumidity(snapshot.val().humidity);
+  //         console.log(snapshot.val().temperature);
+  //       }),
+  //   this.humidity =  sensorDataRef
+  //       .orderByChild("humidity")
+  //       .on("child_added", snapshot => {
+  //         this.updateHumidity(snapshot.val().humidity);
+  //         console.log(snapshot.val().humidity);
+  //       })
+  // },
   data() {
     return {
-      sensorData: [{}]
+      //sensorData: [{}],
+      temperature: 
+      sensorDataRef
+        .orderByChild("temperature")
+        .on("child_added", snapshot => {
+          this.updateTemp(snapshot.val().temperature);
+          //this.updateHumidity(snapshot.val().humidity);
+          console.log(snapshot.val().temperature);
+        }),
+      humidity:
+      sensorDataRef
+        .orderByChild("humidity")
+        .on("child_added", snapshot => {
+          this.updateHumidity(snapshot.val().humidity);
+          console.log(snapshot.val().humidity);
+        }),
     };
   },
 
-  methods: {
-    readTemperatureData() {
-      //var read = firebase.database().ref('smart-pharmacy-fridge/Sensor_Data');
-      temperatureRef.on('child_added', function(childSnapshot, prevChildKey) {
-        return (childSnapshot.val()).temperature;
-      });
-    },
+  firebase: {
+    sensorData: sensorDataRef,
+    // temperature: childDataRef,
+    // humidity:childDataRef,
   },
- };
+  methods: {
+    updateTemp: function(newTemp) {
+      console.log(newTemp);
+      this.temperature = newTemp;
+    },
+    updateHumidity: function(newHumidity) {
+      console.log(newHumidity);
+      this.humidity = newHumidity;
+    }
+  }
+};
 </script>

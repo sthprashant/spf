@@ -1,5 +1,5 @@
 <template>
-    <InventoryTable/>
+    <InventoryTable />
 </template>
 
 <script>
@@ -9,6 +9,11 @@ export default {
     name:"Inventory",
     components:{
         InventoryTable,
+    },
+
+data() {
+    return {
     }
+}
 }
 </script>

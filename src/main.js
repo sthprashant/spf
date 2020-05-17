@@ -3,9 +3,15 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
+//import VueFire from 'vuefire';
+import { rtdbPlugin } from 'vuefire';
 //import * as firebase from 'firebase';
 
+Vue.use(rtdbPlugin);
+
 Vue.config.productionTip = false;
+
+
 
 // // Your web app's Firebase configuration
 // var firebaseConfig = {

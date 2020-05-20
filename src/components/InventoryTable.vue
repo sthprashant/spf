@@ -45,35 +45,6 @@ export default {
   },
   firebase: {
     inventoryList: inventoryListRef,
-    //totalWeightPull: 
   },
-  methods: {
-    //   calcStock(){
-    //     this.stockLevel = this.totalWeight / this.weight
-    //   },
-
-    // getColor(stockLevel) {
-    //   if (stockLevel < 3) return "red";
-    //   else if (stockLevel < 4) return "orange";
-    //   else return "green";
-    // }
-  },
-
-  // computed: {
-  //   calcStock() {
-  //     return this.inventoryList.totalWeight;
-  //   }
-  // },
-  // watch: {
-  //   calcStock: {
-  //     immediate: true,
-  //     handler: function(oldVal) {
-  //       console.log("total weight is " + oldVal);
-  //       console.log(oldVal);
-  //       this.inventoryList.stockLevel = oldVal / this.inventoryList.weight;
-  //     },
-  //     deep:true,
-  //   }
-  // }
 };
 </script>

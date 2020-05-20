@@ -1,24 +1,20 @@
 <template>
   <v-row align="center" justify="center">
     <v-col cols="6">
-      <!-- <v-btn @click="updateTemp">Test</v-btn> -->
       <v-card class="mb-6">
         <v-list-item two-line>
           <v-list-item-content>
             <v-list-item-title class="headline">Temperature</v-list-item-title>
-            <v-list-item-subtitle>Threshold: 5&deg;C</v-list-item-subtitle>
+            <v-list-item-subtitle>Threshold: {{tempThreshold}}&deg;C</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
 
         <v-card-text>
           <v-row align="center">
             <v-col class="display-3" cols="6">
-              <v-col class="display-1" cols="6">{{this.temperature}}&deg;C</v-col>
+              <v-col class="display-1" cols="6">{{temperature}}&deg;C</v-col>
             </v-col>
-            <v-col cols="6">
-              <!-- <v-sparkline labels="labels" value="value"></v-sparkline> -->
-              <!-- <p class="display-2">Chart Placeholder</p> -->
-            </v-col>
+            <v-col cols="6"></v-col>
           </v-row>
         </v-card-text>
       </v-card>
@@ -27,17 +23,14 @@
         <v-list-item two-line>
           <v-list-item-content>
             <v-list-item-title class="headline">Humidity</v-list-item-title>
-            <v-list-item-subtitle>Threshold: 5&deg;C</v-list-item-subtitle>
+            <v-list-item-subtitle>Threshold: {{humidityThreshold}}&deg;C</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
 
         <v-card-text>
           <v-row align="center">
-            <v-col class="display-1" cols="6">{{this.humidity}}&deg;C</v-col>
-            <v-col cols="6">
-              <!-- <v-sparkline labels="labels" value="value"></v-sparkline> -->
-              <!-- <p class="display-2">Chart Placeholder</p> -->
-            </v-col>
+            <v-col class="display-1" cols="6">{{humidity}}&deg;C</v-col>
+            <v-col cols="6"></v-col>
           </v-row>
         </v-card-text>
       </v-card>
@@ -49,56 +42,29 @@
 import { db } from "../server/db.js";
 
 const sensorDataRef = db.ref("Sensor_Data");
-// const childDataRef = sensorDataRef
-//   .orderByChild("temperature")
-//   .on("child_added", snapshot => {
-//     this.updateTemp(snapshot.val().temperature);
-//     this.updateHumidity(snapshot.val().humidity);
-//     console.log(snapshot.val().temperature);
-//   });
-
 export default {
   name: "Readings",
-  // beforeMount() {
-  //   this.temperature = sensorDataRef
-  //       .orderByChild("temperature")
-  //       .on("child_added", snapshot => {
-  //         this.updateTemp(snapshot.val().temperature);
-  //         //this.updateHumidity(snapshot.val().humidity);
-  //         console.log(snapshot.val().temperature);
-  //       }),
-  //   this.humidity =  sensorDataRef
-  //       .orderByChild("humidity")
-  //       .on("child_added", snapshot => {
-  //         this.updateHumidity(snapshot.val().humidity);
-  //         console.log(snapshot.val().humidity);
-  //       })
-  // },
   data() {
     return {
-      //sensorData: [{}],
-      temperature: 
-      sensorDataRef
+      temperature: sensorDataRef
         .orderByChild("temperature")
         .on("child_added", snapshot => {
           this.updateTemp(snapshot.val().temperature);
-          //this.updateHumidity(snapshot.val().humidity);
           console.log(snapshot.val().temperature);
         }),
-      humidity:
-      sensorDataRef
+      humidity: sensorDataRef
         .orderByChild("humidity")
         .on("child_added", snapshot => {
           this.updateHumidity(snapshot.val().humidity);
           console.log(snapshot.val().humidity);
         }),
+      tempThreshold:0,
+      humidityThreshold:0,
     };
   },
 
   firebase: {
-    sensorData: sensorDataRef,
-    // temperature: childDataRef,
-    // humidity:childDataRef,
+    sensorData: sensorDataRef
   },
   methods: {
     updateTemp: function(newTemp) {

@@ -12,14 +12,6 @@
             <template v-slot:item.stockLevel="{ item }">
               <v-chip>{{item.totalWeight/item.weight}}</v-chip>
             </template>
-            <!-- <template v-slot:items="props">
-          <td>{{ props.item.id }}</td>
-          <td class="text-xs-right">{{ props.item.name }}</td>
-          <td class="text-xs-right">{{ props.item.itemWeight }}</td>
-          <td class="text-xs-right">{{ props.item.stockLevel }}</td>
-          <td class="text-xs-right">{{ props.item.autoOrder }}</td>
-          <td class="text-xs-right">{{ props.item.threshold }}</td>
-            </template>-->
           </v-data-table>
         </v-card>
       </v-row>
@@ -53,35 +45,6 @@ export default {
   },
   firebase: {
     inventoryList: inventoryListRef,
-    //totalWeightPull: 
   },
-  methods: {
-    //   calcStock(){
-    //     this.stockLevel = this.totalWeight / this.weight
-    //   },
-
-    // getColor(stockLevel) {
-    //   if (stockLevel < 3) return "red";
-    //   else if (stockLevel < 4) return "orange";
-    //   else return "green";
-    // }
-  },
-
-  // computed: {
-  //   calcStock() {
-  //     return this.inventoryList.totalWeight;
-  //   }
-  // },
-  watch: {
-    calcStock: {
-      immediate: true,
-      handler: function(oldVal) {
-        console.log("total weight is " + oldVal);
-        console.log(oldVal);
-        this.inventoryList.stockLevel = oldVal / this.inventoryList.weight;
-      },
-      deep:true,
-    }
-  }
 };
 </script>

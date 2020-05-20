@@ -12,14 +12,6 @@
             <template v-slot:item.stockLevel="{ item }">
               <v-chip>{{item.totalWeight/item.weight}}</v-chip>
             </template>
-            <!-- <template v-slot:items="props">
-          <td>{{ props.item.id }}</td>
-          <td class="text-xs-right">{{ props.item.name }}</td>
-          <td class="text-xs-right">{{ props.item.itemWeight }}</td>
-          <td class="text-xs-right">{{ props.item.stockLevel }}</td>
-          <td class="text-xs-right">{{ props.item.autoOrder }}</td>
-          <td class="text-xs-right">{{ props.item.threshold }}</td>
-            </template>-->
           </v-data-table>
         </v-card>
       </v-row>
@@ -72,16 +64,16 @@ export default {
   //     return this.inventoryList.totalWeight;
   //   }
   // },
-  watch: {
-    calcStock: {
-      immediate: true,
-      handler: function(oldVal) {
-        console.log("total weight is " + oldVal);
-        console.log(oldVal);
-        this.inventoryList.stockLevel = oldVal / this.inventoryList.weight;
-      },
-      deep:true,
-    }
-  }
+  // watch: {
+  //   calcStock: {
+  //     immediate: true,
+  //     handler: function(oldVal) {
+  //       console.log("total weight is " + oldVal);
+  //       console.log(oldVal);
+  //       this.inventoryList.stockLevel = oldVal / this.inventoryList.weight;
+  //     },
+  //     deep:true,
+  //   }
+  // }
 };
 </script>

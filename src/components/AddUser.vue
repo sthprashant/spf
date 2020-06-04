@@ -1,4 +1,5 @@
 <template>
+
    <v-dialog v-model="dialog" persistent max-width="600px">
       <template v-slot:activator="{ on }">
         <v-btn color="primary" dark v-on="on">Add User</v-btn>
@@ -44,7 +45,7 @@
                 ></v-select>
               </v-col>
               <v-col cols="12" sm="6">
-                  <v-btn disabled>Add Face</v-btn>
+                  <!-- <v-btn disabled>Add Face</v-btn> -->
                 <!-- <v-autocomplete
                   :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
                   label="Interests"
